@@ -7,6 +7,10 @@
 <p align = "center">
   
   Examples: <br/>
+
+</p>
+
+<p align = "center">
   
   <br/> <br/> <br/>
   Original Photo:
