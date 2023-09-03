@@ -3,6 +3,7 @@
 &emsp; A Voronoi Diagram generator. <br/>
 &emsp; It receives an image and generates its Voronoi Diagram. <br/>
 &emsp; The user can set the number of fixed points used in the generation of the diagram. <br/>
+&emsp; It uses Euclidian Distance and also Manhattan Distance. <br/>
 
 <p align = "center">
   Examples: <br/>
