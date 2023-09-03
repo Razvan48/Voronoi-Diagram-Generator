@@ -11,15 +11,25 @@
   <br/> <br/> <br/>
   <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Cat.png"> <br/>
   <br/> <br/> <br/> <br/> <br/>
-  Its Voronoi Diagram with 1000 points fixed:
+  Its Voronoi Diagram with 1000 points fixed and Euclidian distance used:
   <br/> <br/> <br/>
-  <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Cat Voronoi.png"> <br/>
+  <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Cat Voronoi Euclidian.png"> <br/>
+  <br/> <br/> <br/> <br/> <br/>
+  Its Voronoi Diagram with 1000 points fixed and Manhattan distance used:
+  <br/> <br/> <br/>
+  <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Cat Voronoi Manhattan.png"> <br/>
+  <br/> <br/> <br/> <br/> <br/>
   <br/> <br/> <br/>
   Original Photo:
   <br/> <br/> <br/>
   <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Dog.png"> <br/>
   <br/> <br/> <br/> <br/> <br/>
-  Its Voronoi Diagram with 1000 points fixed:
+  Its Voronoi Diagram with 1000 points fixed and Euclidian distance used:
   <br/> <br/> <br/>
-  <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Dog Voronoi.png"> <br/>
+  <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Dog Voronoi Euclidian.png"> <br/>
+  <br/> <br/> <br/> <br/> <br/>
+  Its Voronoi Diagram with 1000 points fixed and Manhattan distance used:
+  <br/> <br/> <br/>
+  <img width="505" height="425" src="https://github.com/Razvan48/Voronoi-Diagram-Generator/blob/main/Demo/Dog Voronoi Manhattan.png"> <br/>
+  <br/> <br/> <br/> <br/> <br/>
 </p>
