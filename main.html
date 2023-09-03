@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Voronoi Diagram Generator</title>
+		<meta charset= "utf-8">
+		<script src="js/main.js"></script>
+	</head>
+	<body>
+		<div>
+			<p>Voronoi Diagram Generator</p>
+		</div>
+		
+		<div>
+			<form id="mainForm">
+				<fieldset>
+					<label for="mainFile"> File: </label>
+					<input type="file" id="mainFile" name="mainFile" accept="image/*" required> <br>
+					<label for="mainRange"> Number of Generators: </label>
+					<input type="range" id="mainRange" name="mainRange" min = "1", max="1000", step="1" required> <br>
+				</fieldset>
+				<br> <br> <br>
+				<button type="submit" id="mainSubmit">Generate</button>
+			</form>
+		</div>
+	</body>
+</html>
