@@ -8,14 +8,14 @@ function updateCanvas()
 		for (let i = 0; i < document.getElementById("mainRange").value; ++i)
 		{
 			let valuesTaken = true;
-			newX = Math.floor(Math.random() * document.getElementById("mainCanvas").width);
-			newY = Math.floor(Math.random() * document.getElementById("mainCanvas").height);
+			newX = Math.floor(Math.random() * document.getElementById("originalCanvas").width);
+			newY = Math.floor(Math.random() * document.getElementById("originalCanvas").height);
 			
 			while (valuesTaken)
 			{
 				valuesTaken = false;
-				newX = Math.floor((Math.random() * document.getElementById("mainCanvas").width));
-				newY = Math.floor((Math.random() * document.getElementById("mainCanvas").height));
+				newX = Math.floor((Math.random() * document.getElementById("originalCanvas").width));
+				newY = Math.floor((Math.random() * document.getElementById("originalCanvas").height));
 				
 				for (let j = 0; j < generators.length && !valuesTaken; ++j)
 				{
@@ -35,12 +35,18 @@ function updateCanvas()
 		
 		let mainCanvas = document.getElementById("mainCanvas");
 		let mainCanvasContext = mainCanvas.getContext("2d");
+
+		let manhattanCanvas = document.getElementById("manhattanCanvas");
+		let manhattanCanvasContext = manhattanCanvas.getContext("2d");
 		
 		let originalImageData = originalCanvasContext.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
 		let originalPixels = originalImageData.data;
 		
 		let mainImageData = mainCanvasContext.getImageData(0, 0, mainCanvas.width, mainCanvas.height);
 		let mainPixels = mainImageData.data;
+
+		let manhattanImageData = manhattanCanvasContext.getImageData(0, 0, manhattanCanvas.width, manhattanCanvas.height);
+		let manhattanPixels = manhattanImageData.data;
 		
 		for (let i = 0; i < originalPixels.length; i += 4)
 		{
@@ -91,11 +97,12 @@ function updateCanvas()
 			generatedAreas[i][0][2] /= (generatedAreas[i][1]);
 		}
 		
+		// Euclidian Distance
 		for (let i = 0; i < mainPixels.length; i += 4)
 		{
 			let pixelIndex = i / 4;
-			let pixelRow = Math.floor(pixelIndex / mainCanvas.width);
-			let pixelCol = pixelIndex % mainCanvas.width;
+			let pixelRow = Math.floor(pixelIndex / originalCanvas.width);
+			let pixelCol = pixelIndex % originalCanvas.width;
 			
 			let indexNearestGenerator = 0;
 			
@@ -133,6 +140,50 @@ function updateCanvas()
 		}
 		
 		mainCanvasContext.putImageData(mainImageData, 0, 0);
+		
+		// Manhattan Distance
+		for (let i = 0; i < manhattanPixels.length; i += 4)
+		{
+			let pixelIndex = i / 4;
+			let pixelRow = Math.floor(pixelIndex / originalCanvas.width);
+			let pixelCol = pixelIndex % originalCanvas.width;
+			
+			let indexNearestGenerator = 0;
+			
+			for (let j = 0; j < generators.length; ++j)
+			{
+				if
+				(
+					// Euclidian Distance
+					/*
+					(generators[indexNearestGenerator][0] - pixelRow) *
+					(generators[indexNearestGenerator][0] - pixelRow) +
+					(generators[indexNearestGenerator][1] - pixelCol) *
+					(generators[indexNearestGenerator][1] - pixelCol)
+					>
+					(generators[j][0] - pixelRow) *
+					(generators[j][0] - pixelRow) +
+					(generators[j][1] - pixelCol) *
+					(generators[j][1] - pixelCol)
+					*/
+					// Manhattan Distance
+					Math.abs(generators[indexNearestGenerator][0] - pixelRow) +
+					Math.abs(generators[indexNearestGenerator][1] - pixelCol)
+					>
+					Math.abs((generators[j][0] - pixelRow)) +
+					Math.abs((generators[j][1] - pixelCol))
+				)
+				{
+					indexNearestGenerator = j;
+				}
+			}
+			
+			manhattanPixels[i] = generatedAreas[indexNearestGenerator][0][0];
+			manhattanPixels[i + 1] = generatedAreas[indexNearestGenerator][0][1];
+			manhattanPixels[i + 2] = generatedAreas[indexNearestGenerator][0][2];
+		}
+		
+		manhattanCanvasContext.putImageData(manhattanImageData, 0, 0);
 	}
 }
 
@@ -160,6 +211,13 @@ window.onload = function()
 			let mainCanvas = document.createElement("canvas");
 			mainCanvas.id = "mainCanvas";
 			document.getElementById("mainDiv").appendChild(mainCanvas);
+
+			let manhattanDiv = document.createElement("div");
+			manhattanDiv.id = "manhattanDiv";
+			document.body.appendChild(manhattanDiv);
+			let manhattanCanvas = document.createElement("canvas");
+			manhattanCanvas.id = "manhattanCanvas";
+			document.getElementById("manhattanDiv").appendChild(manhattanCanvas);
 		}
 		
 		let originalCanvas = document.getElementById("originalCanvas");
@@ -167,6 +225,9 @@ window.onload = function()
 		
 		let mainCanvas = document.getElementById("mainCanvas");
 		let mainCanvasContext = mainCanvas.getContext("2d");
+
+		let manhattanCanvas = document.getElementById("manhattanCanvas");
+		let manhattanCanvasContext = manhattanCanvas.getContext("2d");
 		
 		let file = document.getElementById("mainFile").files[0];
 		let fileReader = new FileReader();
@@ -185,6 +246,10 @@ window.onload = function()
 				mainCanvas.width = image.width;
 				mainCanvas.height = image.height;
 				mainCanvasContext.drawImage(image, 0, 0);
+
+				manhattanCanvas.width = image.width;
+				manhattanCanvas.height = image.height;
+				manhattanCanvasContext.drawImage(image, 0, 0);
 				
 				document.getElementById("mainRange").value = document.getElementById("mainRange").min;
 				document.getElementById("mainRangeSpan").textContent = document.getElementById("mainRange").min;
